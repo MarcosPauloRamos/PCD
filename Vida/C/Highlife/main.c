@@ -69,7 +69,7 @@ void prox_rodada(){
                     newgrid[i][j] = c_viva;
             }
             else{ // le células mortas
-                if(getNeighbors(i,j) == 3) // Regra D
+                if(getNeighbors(i,j) == 3 || getNeighbors(i,j) == 6) // Regra D
                     newgrid[i][j] = c_viva;
                 else // pode-se retirar pois não fez nada com célula
                     newgrid[i][j] = c_morta;
