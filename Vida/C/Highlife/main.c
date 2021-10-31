@@ -63,15 +63,15 @@ void prox_rodada(){
     for(i=0;i<TAM; i++){
         for(j = 0; j<TAM; j++){
             if (grid[i][j] == 1){ //le celulas vivas
-                if (getNeighbors(i,j) < 2 || getNeighbors(i,j) > 3) // Regra A e C
+                if (getNeighbors(i,j) < 2 || getNeighbors(i,j) > 3) // Regra 1
                     newgrid[i][j] = c_morta;
-                else // Regra B
+                else // Regra 3
                     newgrid[i][j] = c_viva;
             }
             else{ // le células mortas
-                if(getNeighbors(i,j) == 3 || getNeighbors(i,j) == 6) // Regra D
+                if(getNeighbors(i,j) == 3 || getNeighbors(i,j) == 6) // Regra 2
                     newgrid[i][j] = c_viva;
-                else // pode-se retirar pois não fez nada com célula
+                else // Regra 3
                     newgrid[i][j] = c_morta;
             }
         }
