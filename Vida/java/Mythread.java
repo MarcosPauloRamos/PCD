@@ -36,16 +36,16 @@ class Mythread implements Runnable {
 		for(int i=0;i<(this.TAMANHO/this.MaxThreads); i++){     
             for(int j = 0; j<this.TAMANHO; j++){
                 if (this.grid[(i+this.Offset)][j] == 1){ // //le celulas vivas
-                    if (getNeighbors((i+this.Offset),j) < 2 || getNeighbors((i+this.Offset),j) > 3){ // Regra A e C
+                    if (getNeighbors((i+this.Offset),j) < 2 || getNeighbors((i+this.Offset),j) > 3){ // Regra 1
                         this.gridAux[i][j] = 0;
                     }
-                    else // Regra B
+                    else // Regra 3
                         this.gridAux[i][j] = 1; 
                 }
                 else{ // le células mortas
-                    if(getNeighbors((i+this.Offset),j) == 3) // Regra D
+                    if(getNeighbors((i+this.Offset),j) == 3) // Regra 2
                         this.gridAux[i][j] = 1;
-                    else // pode-se retirar pois não fez nada com célula
+                    else // Regra 3
                         this.gridAux[i][j] = 0;
                 }
             }
