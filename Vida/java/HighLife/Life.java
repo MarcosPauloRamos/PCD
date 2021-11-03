@@ -44,10 +44,10 @@ public class Life {
     }
 
     // Copia o quarto do grid gerado para a proxima geração
-    public void atualizacao(int offset, int quarterGen[][]){
+    public void atualizacao(int atual, int aux_grid[][]){
         for(int i=0;i<(this.TAMANHO/num_t); i++){     
             for(int j = 0; j<this.TAMANHO; j++){
-                newgrid[(offset+i)][j] = quarterGen[i][j];
+                newgrid[(atual+i)][j] = aux_grid[i][j];
             }
         }
     }
