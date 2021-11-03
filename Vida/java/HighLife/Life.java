@@ -43,7 +43,7 @@ public class Life {
         }
     }
 
-    // Copia o quarto do grid gerado para a proxima geração
+    // Copia para newgrid os elementos criados dentro da thread
     public void atualizacao(int atual, int aux_grid[][]){
         for(int i=0;i<(this.TAMANHO/num_t); i++){     
             for(int j = 0; j<this.TAMANHO; j++){
