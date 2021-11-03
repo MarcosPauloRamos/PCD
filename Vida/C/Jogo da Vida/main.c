@@ -47,7 +47,7 @@ int getNeighbors(int i, int j) {
     num_vizinhos += grid[((i+1)%TAM)][(TAM+(j-1))%TAM]; 
     num_vizinhos += grid[i][(TAM+(j-1))%TAM]; 
     num_vizinhos += grid[(TAM+(i-1))%TAM][(TAM+(j-1))%TAM]; 
-    num_vizinhos += grid[(TAM+(i-1))%TAM][j]; // cima
+    num_vizinhos += grid[(TAM+(i-1))%TAM][j]; 
     num_vizinhos += grid[(TAM+(i-1))%TAM][((j+1)%TAM)]; 
 
     return num_vizinhos;
