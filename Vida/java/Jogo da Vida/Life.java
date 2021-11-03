@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Life {
     private int TAMANHO;
     public static int num_t = 8;
@@ -46,7 +44,7 @@ public class Life {
     }
 
     // Copia o quarto do grid gerado para a proxima geração
-    public void copyGen(int offset, int quarterGen[][]){
+    public void atualizacao(int offset, int quarterGen[][]){
         for(int i=0;i<(this.TAMANHO/num_t); i++){     
             for(int j = 0; j<this.TAMANHO; j++){
                 newgrid[(offset+i)][j] = quarterGen[i][j];
@@ -70,7 +68,8 @@ public class Life {
 
     public static void main(String[] args) throws InterruptedException{
         int lado = 2048;
-        int offset;
+        int t_atual;//para auxiliar qual é o campo de cada thread
+	    //valores de 1 até 249 são referentes a thread1 (i*t_atual = 0), 250 a 499 é thread 2 (i*t_atual = 1)...
         Thread[] th;
         Mythread[] mh;
         mh = new Mythread[num_t];
@@ -80,19 +79,19 @@ public class Life {
         long startTime = System.currentTimeMillis();
         System.out.println("Condicao Inicial: " + gen1.total_vivos());
 
-        offset = lado/num_t;
+        t_atual = lado/num_t;
         for(int k=0;k<2000;k++){
             for(int i=0; i<num_t; i++) {
-                mh[i] = new Mythread(lado, num_t, (i*offset), grid);
+                mh[i] = new Mythread(lado, num_t, (i*t_atual), grid);
                 th[i] = new Thread(mh[i]);
                 th[i].start();
             }
             for(int i=0; i<num_t; i++) {
                 th[i].join();
-                gen1.copyGen((i*offset),mh[i].gridAux);
+                gen1.atualizacao((i*t_atual),mh[i].gridAux);
             }
             gen1.copia();
-           System.out.println("Geracao " + i + ": " + gen1.total_vivos());
+           System.out.println("Geracao " + k + ": " + gen1.total_vivos());
         }
         System.out.println("Ultima Geracao: " + gen1.total_vivos());
         double calcTime = (System.currentTimeMillis() - startTime)/1000.;
