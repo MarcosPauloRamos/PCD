@@ -11,12 +11,11 @@
 
 int **grid, **newgrid;
 
+/// Calculo de tempo
 typedef struct {
     int secs;
     int usecs;
 }Duracao;
-
-/// Calculo de tempo
 //função utilizada a partir da leitura do site:
 //https://qastack.com.br/programming/5248915/execution-time-of-c-program
 Duracao * tempo_decorrido (struct timeval *start, struct timeval *end){
@@ -38,18 +37,18 @@ Duracao * tempo_decorrido (struct timeval *start, struct timeval *end){
     return total;
 }
 
-// Retorna a quantidade de vizinhos vivos de cada celula na posicao ​i,j
+// Retorna a quantidade de vizinhos vivos de cada celula
 int getNeighbors(int i, int j) {
     int num_vizinhos=0;
 
-    num_vizinhos += grid[i][((j+1)%TAM)]; // direita
-    num_vizinhos += grid[((i+1)%TAM)][((j+1)%TAM)]; // direita baixo
-    num_vizinhos += grid[((i+1)%TAM)][j]; //baixo
-    num_vizinhos += grid[((i+1)%TAM)][(TAM+(j-1))%TAM]; // esquerda baixo
-    num_vizinhos += grid[i][(TAM+(j-1))%TAM]; // esquerda
-    num_vizinhos += grid[(TAM+(i-1))%TAM][(TAM+(j-1))%TAM]; //esquerda cima
+    num_vizinhos += grid[i][((j+1)%TAM)]; 
+    num_vizinhos += grid[((i+1)%TAM)][((j+1)%TAM)];
+    num_vizinhos += grid[((i+1)%TAM)][j]; 
+    num_vizinhos += grid[((i+1)%TAM)][(TAM+(j-1))%TAM]; 
+    num_vizinhos += grid[i][(TAM+(j-1))%TAM]; 
+    num_vizinhos += grid[(TAM+(i-1))%TAM][(TAM+(j-1))%TAM]; 
     num_vizinhos += grid[(TAM+(i-1))%TAM][j]; // cima
-    num_vizinhos += grid[(TAM+(i-1))%TAM][((j+1)%TAM)]; // direita cima
+    num_vizinhos += grid[(TAM+(i-1))%TAM][((j+1)%TAM)]; 
 
     return num_vizinhos;
 }
@@ -141,14 +140,11 @@ int main(){
 
     gettimeofday (&start, NULL);
     printf("Condicao Inicial: %d\n", total_vivos());
-
-
     // Gera NUM_GEN geracoes a partir da primeira
     for(i=0;i<NUM_GEN;i++){
         prox_rodada();
         printf("Geracao %d: %d\n",i+1, total_vivos());
     }
-
     printf("Ultima Geracao: %d\n", total_vivos());
 
     gettimeofday (&end, NULL);
