@@ -3,31 +3,30 @@
 #include<omp.h> 
 #include <unistd.h>
 
-#define MAX_THREADS 4
+#define NTHREADS 4
 #define MAX_REQUESTS 20000
 
-int soma=0, respond=0, request=0, id;
-unsigned int num_requests = 1;
+int soma=0, cliente;
+
 
 // Rotina de execussao do cliente
-void Cliente(int id){
-    unsigned int num_requests = 1;
-    while(num_requests <= MAX_REQUESTS){
+void Client_server(int cliente){
+    unsigned int atual = 1;
+    while(atual <= NTHREADS){
         // Entra na sessao critica
         int local = soma;
         usleep(rand()%2);
         soma = local + 1;
         // Sai da sessao critica
-        printf("Thread %d: Soma = %d Requests: %d\n",id,soma,num_requests);
-        num_requests++;
+        printf("Thread %d: Soma = %d Requests: %d\n",cliente,soma,atual);
+        atual++;
     }
 }
 
 int main(){
     int i;
-    #pragma omp parallel private(id) num_threads(MAX_THREADS)
+    #pragma omp parallel private(cliente) num_threads(NTHREADS)
     #pragma omp for
-        for(i=0;i<MAX_THREADS;i++) Cliente(i);
-    printf("Fim da execucao!\n");
+        for(i=0;i<NTHREADS;i++) Client_server(i);
     return 0;
 }
