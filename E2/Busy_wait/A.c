@@ -3,35 +3,35 @@
 #include<omp.h> 
 #include <unistd.h>
 
-#define MAX_THREADS 5
-#define MAX_REQUESTS 1000001
+#define NTHREADS  5
+#define NREQUESTS 10000
 
-int soma=0, respond=0, request=0, id;
-unsigned int num_requests = 1;
+int soma=0, respond=0, request=0, cliente;
+unsigned int atual = 1;
 
 // Rotina de execussao do cliente
-void Cliente(int id){
-    while(num_requests <= MAX_REQUESTS){
-        while(respond!=id){
-            if(num_requests == MAX_REQUESTS) return;
-            request=id;
+void Client_process(int cliente){
+    while(atual <= NREQUESTS){
+        while(respond!=cliente){
+            if(atual == NREQUESTS) return;
+            request=cliente;
         }
         // Entra na sessao critica
         int local = soma;
         usleep(rand()%2);
         soma = local + 1;
         // Sai da sessao critica
-        printf("Thread %d: Soma = %d Requests: %d\n",id,soma,num_requests);
+        printf("Thread %d: Soma = %d Requests: %d\n",cliente,soma,atual);
         respond=0;
-        num_requests++;
+        atual++;
     }
 }
 
 // Rotina de execussao do cliente
-void Servidor(int id){
-    while(num_requests <= MAX_REQUESTS){
+void Server_process(int cliente){
+    while(atual <= NREQUESTS){
         while(request==0){
-            if(num_requests == MAX_REQUESTS) return;
+            if(atual == NREQUESTS) return;
         }
         respond=request;
         while(respond!=0);
@@ -42,11 +42,11 @@ void Servidor(int id){
 int main(){
     int i;
 
-    #pragma omp parallel private(id) num_threads(MAX_THREADS)
+    #pragma omp parallel private(cliente) num_threads(NTHREADS)
     #pragma omp for
-    for(i=0;i<MAX_THREADS;i++){
-        if(i == 0) Servidor(i);
-        else Cliente(i);
+    for(i=0;i<NTHREADS;i++){
+        if(i == 0) Server_process(i);
+        else Client_process(i);
     }
     printf("Fim da execucao!\n");
     return 0;
