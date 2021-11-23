@@ -4,14 +4,13 @@
 #include <unistd.h>
 
 #define NTHREADS 4
-#define MAX_REQUESTS 20000
+#define MAX_REQUESTS 10000
 
 int soma=0, cliente;
-
+unsigned int atual = 1;
 
 // Rotina de execussao do cliente
-void Client_server(int cliente){
-    unsigned int atual = 1;
+void Client_process(int cliente){
     while(atual <= NTHREADS){
         // Entra na sessao critica
         int local = soma;
@@ -27,6 +26,6 @@ int main(){
     int i;
     #pragma omp parallel private(cliente) num_threads(NTHREADS)
     #pragma omp for
-        for(i=0;i<NTHREADS;i++) Client_server(i);
+        for(i=0;i<NTHREADS;i++) Client_process(i);
     return 0;
 }
