@@ -98,7 +98,7 @@ int contaPopulacao(){
 // Rotina do processo principal
 void prinProc(int nproc){
     int i,j,inicio,tag=0,div=0,rank,atual;
-    int part = TAM/nproc;
+    int proc_atual = TAM/nproc;
     Duracao *valor;
     struct timeval start, end;
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -112,7 +112,7 @@ void prinProc(int nproc){
         newgrid[i] = malloc(sizeof(int)*TAM);
     }
     /// Definição dos pontos iniciais
-    for(i=0;i<(part); i++){     
+    for(i=0;i<(proc_atual); i++){     
         for(j = 0; j<TAM; j++){
             grid[i][j] = 0; 
         }
@@ -135,7 +135,7 @@ void prinProc(int nproc){
   
     div = i;
     for(inicio=1;inicio<nproc;inicio++){
-        for(i=div;i<(inicio+1)*part;i++){
+        for(i=div;i<(inicio+1)*proc_atual;i++){
             MPI_Recv(bufRcv,TAM,MPI_INT,inicio,tag,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
             for(j=0;j<TAM;j++){
                 grid[i][j] = bufRcv[j];
@@ -155,10 +155,10 @@ void prinProc(int nproc){
             MPI_Barrier(MPI_COMM_WORLD);
         }
 
-        prox_rodada(nproc,part,rank);
+        prox_rodada(nproc,proc_atual,rank);
 
         for(inicio=1;inicio<nproc;inicio++){
-            for(i=(part*inicio);i<(part*(inicio+1));i++){
+            for(i=(proc_atual*inicio);i<(proc_atual*(inicio+1));i++){
                 MPI_Recv(bufRcv,TAM,MPI_INT,inicio,tag,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
                 for(j=0;j<TAM;j++){
                     grid[i][j] = bufRcv[j];
@@ -176,7 +176,7 @@ void prinProc(int nproc){
 
 // Rotina do processo secundario
 void secProc(int nproc){
-    int tag=0,dest=0,i,j,atual,rank,part=TAM/nproc;
+    int tag=0,dest=0,i,j,atual,rank,proc_atual=TAM/nproc;
 
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 
@@ -191,13 +191,13 @@ void secProc(int nproc){
     // Gera a segunda metade da primeira geracao
     for(i=0;i<TAM; i++){     
         for(j = 0; j<TAM; j++){
-            if(i >= rank*part && i < (rank+1)*part){
+            if(i >= rank*proc_atual && i < (rank+1)*proc_atual){
                 grid[i][j] = 0;  
             }
         }
     }
   
-    for(i=rank*part;i<(rank+1)*part;i++){
+    for(i=rank*proc_atual;i<(rank+1)*proc_atual;i++){
         for(j=0;j<TAM;j++) bufSnd[j] = grid[i][j];
         MPI_Send(bufSnd,TAM,MPI_INT,dest,tag,MPI_COMM_WORLD);
     }
@@ -210,9 +210,9 @@ void secProc(int nproc){
             for(j=0;j<TAM;j++) grid[i][j] = bufRcv[j];
         }
 
-        prox_rodada(nproc,part,rank);
+        prox_rodada(nproc,proc_atual,rank);
 
-        for(i=(part*rank);i<part*(rank+1);i++){ // envia tabela
+        for(i=(proc_atual*rank);i<proc_atual*(rank+1);i++){ // envia tabela
             for(j=0;j<TAM;j++) bufSnd[j] = grid[i][j];
             MPI_Send(bufSnd,TAM,MPI_INT,dest,tag,MPI_COMM_WORLD);
         }
