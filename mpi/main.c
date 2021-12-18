@@ -55,11 +55,11 @@ int getNeighbors(int i, int j) {
 }
 
 // Cria uma nova geracao de acordo com as regras estabelecidas
-void prox_rodada(int numProc, int part, int rank){
+void prox_rodada(int proc_atual, int rank){
     int i, j;
-    int ini = part*rank;
+    int limite = proc_atual*rank;
   
-    for(i=ini;i<(ini+part); i++){
+    for(i=limite;i<proc_atual*(rank+1); i++){
         for(j = 0; j<TAM; j++){
             if (grid[i][j] == 1){ //le celulas vivas
                 if (getNeighbors(i,j) < 2 || getNeighbors(i,j) > 3) // Regra 1
@@ -155,7 +155,7 @@ void prinProc(int nproc){
             MPI_Barrier(MPI_COMM_WORLD);
         }
 
-        prox_rodada(nproc,proc_atual,rank);
+        prox_rodada(proc_atual,rank);
 
         for(inicio=1;inicio<nproc;inicio++){
             for(i=(proc_atual*inicio);i<(proc_atual*(inicio+1));i++){
@@ -210,7 +210,7 @@ void secProc(int nproc){
             for(j=0;j<TAM;j++) grid[i][j] = bufRcv[j];
         }
 
-        prox_rodada(nproc,proc_atual,rank);
+        prox_rodada(proc_atual,rank);
 
         for(i=(proc_atual*rank);i<proc_atual*(rank+1);i++){ // envia tabela
             for(j=0;j<TAM;j++) bufSnd[j] = grid[i][j];
