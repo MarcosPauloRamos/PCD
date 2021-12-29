@@ -18,25 +18,25 @@ int main()
     int tempo, i, j, grau, cont_grau, k, l, decrementador = 0, familias[tamanho], relacoes[tamanho][tamanho], p, aux_desastre, tt, nascidos;
     double porcentagens_paises, probabilidade_de_desastre_natural, decrementador_desastre, cont_esqucimento = 0, paises[numeropaises], numero_pessoas;
     double cont_mudanca, incrementador, porcentagem_real;
-    ///probabilidade_de_desastre_natural PROBABILIDADE de ocorrer desastre natural que elemina parte da populaÁ„o
+    ///probabilidade_de_desastre_natural PROBABILIDADE de ocorrer desastre natural que elemina parte da popula√ß√£o
     ///decrementador_desastre TAXA de influencia na infelicidade da pessoa --> dura por um tempo antes das pessoas superarem a perda do desastre natural
     ///cont_esqucimento TEMPO que leva para a sociedade superar o desastre natural
-    ///porcentagens_paises È um contador para o a influencia total dos outros paises
+    ///porcentagens_paises √© um contador para o a influencia total dos outros paises
     ///grau e cont_grau referem-se ao tipo grau do grafo
-    ///paises guarda a porcentagem da relaÁ„o entre os paises
+    ///paises guarda a porcentagem da rela√ß√£o entre os paises
     ///familias guarda a quantidade de membros desta familia
     ///numero_pessoas guarda o numero total de pessoas na sociedade
-    /// relacoes guarda o tipo de relaÁ„o que cada familia tem com outra familia
-    /// cont_mudanÁa refere-se a porcentagem total que cada familia tem referente a relaÁ„o com outra familia
-    ///decrementador variavel utilizada para aumentar a taxa de mortalidade da populaÁ„o
-    ///n_crescimento um contador para controlar o numero de individuos que ja nasceu na populaÁ„o
+    /// relacoes guarda o tipo de rela√ß√£o que cada familia tem com outra familia
+    /// cont_mudan√ßa refere-se a porcentagem total que cada familia tem referente a rela√ß√£o com outra familia
+    ///decrementador variavel utilizada para aumentar a taxa de mortalidade da popula√ß√£o
+    ///n_crescimento um contador para controlar o numero de individuos que ja nasceu na popula√ß√£o
     /// incrementador porcentagem de chance de aumentar 1 individuo na familia
 
     ///nessa parte inicializa as variaveis
 
 
         for(i = 0; i < tamanho; i++){
-            for(j = 0; j < tamanho; j++){///esta matriz define as relaÁıes entre diferentes familias do pais
+            for(j = 0; j < tamanho; j++){///esta matriz define as rela√ß√µes entre diferentes familias do pais
                 relacoes[i][j] = 0;
             }
             familias[i] = 5;///este e um contador do numero de membros que cada familia possui
@@ -48,9 +48,9 @@ int main()
         }
 
 
-    ///aqui define as informaÁıes iniciais --> define os valores da matriz e os tipos de relaÁıes entre os paises
+    ///aqui define as informa√ß√µes iniciais --> define os valores da matriz e os tipos de rela√ß√µes entre os paises
 porcentagens_paises = 0;
-        ///aqui define os tipos de relaÁıes entre paises, fica a escolha de quem esta rodando o codigo
+        ///aqui define os tipos de rela√ß√µes entre paises, fica a escolha de quem esta rodando o codigo
             printf("\n Decida os tipos de relacoes que cada pais tera com o pais principal\n");
             printf("0 - neutro: nao influencia\n");
             printf("1 - aliado: influencia positivamente pouco\n");
@@ -90,7 +90,7 @@ porcentagens_paises = 0;
                     if(j == 3) paises[i] = -5;
                     if(j == 4) paises[i] = -10;
                 }
-                ///esta variavel representa a porcentagem total de relaÁıes que os paises externos influenciam no crescimento da populaÁ„o
+                ///esta variavel representa a porcentagem total de rela√ß√µes que os paises externos influenciam no crescimento da popula√ß√£o
                 porcentagens_paises = porcentagens_paises + ((paises[i])/100);
             }
 
@@ -107,21 +107,21 @@ porcentagens_paises = 0;
             }
 
             /// aqui faz uma insercao de grau cont_grau
-            for(i = 0; i < tamanho; i++){///aqui insere uma relaÁ„o em i com uma familia aleatoria
+            for(i = 0; i < tamanho; i++){///aqui insere uma rela√ß√£o em i com uma familia aleatoria
                 for(j = 0; j < cont_grau; j++){
                     k = aleatorio();
-                    ///agora escolhe o tipo de relaÁ„o que familia i tem com familia k
+                    ///agora escolhe o tipo de rela√ß√£o que familia i tem com familia k
                     l =  rand()%3;///0 definido como neutro, 1 define como positivo; 2 define como negativo
                     if(l == 1){
-                        ///define o nivel da relaÁ„o sendo positibva
+                        ///define o nivel da rela√ß√£o sendo positibva
                         l = rand()%2;
                     }else if(l == 2){
-                        ///define o nivel da relaÁ„o sendo negativa
+                        ///define o nivel da rela√ß√£o sendo negativa
                         l = 0 - rand()%2;
                     }
-                    if(i == k){///relaÁ„o È da familia com ela mesma, ocorrera um aumento drastico dentro de nivel
+                    if(i == k){///rela√ß√£o √© da familia com ela mesma, ocorrera um aumento drastico dentro de nivel
                         relacoes[i][k] = relacoes[k][i] = 10*l;
-                    }else{///esta eh a porcentagem da relaÁ„o-> mais pra frente sera transformado em porcentagem(float menor que 1)
+                    }else{///esta eh a porcentagem da rela√ß√£o-> mais pra frente sera transformado em porcentagem(float menor que 1)
                         relacoes[i][k] = relacoes[k][i] = l;
                     }
                 }
@@ -143,9 +143,9 @@ porcentagens_paises = 0;
         for(tempo = 0; tempo < 100000; tempo++){
                 porcentagem_real = (double)(ideal/numero_pessoas);
                 nascidos = taxacrescimento;
-                ///aqui confere se a populaÁ„o ainda lembra do desastre --> se esqueceu cont_esqucimento = 0 ->decrementador_desastre = 0
+                ///aqui confere se a popula√ß√£o ainda lembra do desastre --> se esqueceu cont_esqucimento = 0 ->decrementador_desastre = 0
                 ///se nao esqueceu -->cont_esqucimento --
-                ///se a populaÁ„o esqueceu do desastre-> n„o ocorre mais decremento na populaÁ„o devido ao desastre
+                ///se a popula√ß√£o esqueceu do desastre-> n√£o ocorre mais decremento na popula√ß√£o devido ao desastre
             if(aux_desastre != 1){
                 decrementador_desastre = 0;
             }else{
@@ -158,7 +158,7 @@ porcentagens_paises = 0;
                 probabilidade_de_desastre_natural = rand()%10000;///possibilidade muito minuscula para ocorrencia
 
                 if(probabilidade_de_desastre_natural == 99){///ocorreu o desastre
-                    ///o desastre vai de 1 a 9, sendo 1 o mais de boa e 9 È quase apocalise
+                    ///o desastre vai de 1 a 9, sendo 1 o mais de boa e 9 √© quase apocalise
                     ///aqui acontece mais um randpara decidir qual o desastre
                     probabilidade_de_desastre_natural = rand()%45001;///mesmo que ocorra o desastre --> ainda tem uma chance de ele ser tao fraco que se pode ignorar ele
                     if(probabilidade_de_desastre_natural < 10000){
@@ -182,9 +182,9 @@ porcentagens_paises = 0;
                     }else decrementador = 0;
                     for(l = 0; l < tamanho; l++){
                             if(decrementador_desastre == 9) familias[l] = familias[l] * (0.999);
-                            else familias[l] = familias[l] * (1 - decrementador_desastre/10);/// aqui a populaÁ„o diminui de tamanho--> pessoas morrem
+                            else familias[l] = familias[l] * (1 - decrementador_desastre/10);/// aqui a popula√ß√£o diminui de tamanho--> pessoas morrem
                     }
-                    cont_esqucimento = (decrementador_desastre) * 15;///aqui define o tempo que a populaÁ„o se lembrara deste desastre
+                    cont_esqucimento = (decrementador_desastre) * 15;///aqui define o tempo que a popula√ß√£o se lembrara deste desastre
                     printf("\n ocorreu um desastre de nivel %f no ano %d\n", decrementador_desastre, tempo);
                     if(decrementador_desastre == 9) printf("\n  a humanidade chegou perto do apocalipse no ano %d\n", tempo);
                 }
@@ -192,11 +192,11 @@ porcentagens_paises = 0;
 
     ///para gerar os graficos do relatorio essas duas linha foram tiradas
     ///os graficos foram feitos de forma diferente para poder se notar oque acontece
-            decrementador = (int)numero_pessoas*0.002;///por ciclo 0.6% da populaÁ„o morre
+            decrementador = (int)numero_pessoas*0.002;///por ciclo 0.6% da popula√ß√£o morre
             if (decrementador < 1) decrementador = 1;
         ///teste de incremento e decremento
                 ///se o rand for aceito --> ocorre o incremento ou decremento
-                    ///taxacrescimento eh o numero maximo de pessoas que a populaÁ„o pode aumentar
+                    ///taxacrescimento eh o numero maximo de pessoas que a popula√ß√£o pode aumentar
                     for(i = 0; i < tamanho; i++){
                             p = 1;
                             cont_mudanca = 0;
@@ -207,7 +207,7 @@ porcentagens_paises = 0;
                         incrementador = (porcentagem_real* porcentagem_real * (1 + porcentagens_paises) * (1  - decrementador_desastre/10) * (1 + cont_mudanca))*0.01;
 
 
-                        ///esta parte foi colocada pois o programa n„o estava aceitando double para numeros menores que 0.000001
+                        ///esta parte foi colocada pois o programa n√£o estava aceitando double para numeros menores que 0.000001
                         if(incrementador == 0) p = 10000000;
                         else{
                             while(incrementador < 1){
@@ -217,7 +217,7 @@ porcentagens_paises = 0;
                         }
 
                         j = rand()%p;
-                        if(j < (int)incrementador && nascidos > 0){///aqui ta ocorrendo o incremento de 1 pessoa na populaÁ„o
+                        if(j < (int)incrementador && nascidos > 0){///aqui ta ocorrendo o incremento de 1 pessoa na popula√ß√£o
                             familias[i] = familias[i] + 1;
                             nascidos--;
                         }
@@ -236,30 +236,30 @@ porcentagens_paises = 0;
                         decrementador--;
                     }
 
-                ///aqui faz a atualizaÁ„o do numero total de pessoas na sociedade
+                ///aqui faz a atualiza√ß√£o do numero total de pessoas na sociedade
                 numero_pessoas = 0;
                 for(i = 0; i < tamanho; i++){
                     numero_pessoas = familias[i] + numero_pessoas;
                 }
 
 
-            ///teste para mudar o tipo de relaÁ„o atual---> grafo Erdˆs-RÈnyi
+            ///teste para mudar o tipo de rela√ß√£o atual---> grafo Erd√∂s-R√©nyi
             for(i = 0; i < tamanho; i++){
-                j = rand()%100000000; ///se der certo, pode ocorrer a mudanÁa de relaÁ„o entre familias.
+                j = rand()%100000000; ///se der certo, pode ocorrer a mudan√ßa de rela√ß√£o entre familias.
 
                 if( j == 1){
                     for(j = 0; j < cont_grau; j++){
                         k = aleatorio();
-                        ///agora escolhe o tipo de relaÁ„o que familia i tem com familia k
+                        ///agora escolhe o tipo de rela√ß√£o que familia i tem com familia k
                         l = rand()%3;///0 definido como neutro, 1 define como positivo; 2 define como negativo
                         if(l == 1){
-                            ///define o nivel da relaÁ„o sendo 9 muito bom
+                            ///define o nivel da rela√ß√£o sendo 9 muito bom
                             l = rand()%2;
                         }else if(l == 2){
-                            ///define o nivel da relaÁ„o sendo -9 muito ruim
+                            ///define o nivel da rela√ß√£o sendo -9 muito ruim
                             l = 0 - rand()%2;
                         }
-                        if(i == k){///relaÁ„o È da familia com ela mesma, ocorrera um aumento drastico dentro de nivel
+                        if(i == k){///rela√ß√£o √© da familia com ela mesma, ocorrera um aumento drastico dentro de nivel
                             relacoes[i][k] = relacoes[k][i] = 10*l;
                         }else{
                             relacoes[i][k] = relacoes[k][i] = l;
@@ -269,11 +269,11 @@ porcentagens_paises = 0;
                 }
             }
 
-            ///aqui faz teste para ver se a populaÁ„o passou do limite aceitavel
-            ///teste final: mesmo com os decrementadores, ocorre super populaÁ„o --> aqui eh um easter egg
+            ///aqui faz teste para ver se a popula√ß√£o passou do limite aceitavel
+            ///teste final: mesmo com os decrementadores, ocorre super popula√ß√£o --> aqui eh um easter egg
             if((1/porcentagem_real)  > 3){
                 printf("\n\n\n\n\n atualmente existem %d neste pais\n", (int)numero_pessoas);
-                ///populaÁ„o gigante leva a falta de comida --> lutas por comidas -> leva a guerra --> diminuiÁ„o da populaÁ„o
+                ///popula√ß√£o gigante leva a falta de comida --> lutas por comidas -> leva a guerra --> diminui√ß√£o da popula√ß√£o
                 numero_pessoas = 0;
                      for(i = 0; i < tamanho; i++){
                         familias[i] = familias[i]*0.1;
