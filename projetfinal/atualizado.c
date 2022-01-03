@@ -7,7 +7,7 @@ double ideal = 4000;
 
 int tempo, cont_grau, decrementador = 0;
 int *familias, **relacoes;
-int p, aux_desastre, tt, nascidos;
+int p, desastre, tt, nascidos;
 double porcentagens_paises, probabilidade_de_desastre_natural;
 double decrementador_desastre, cont_esqucimento = 0, numero_pessoas;
 double *paises;
@@ -134,7 +134,7 @@ void vida(){
                 ///aqui confere se a população ainda lembra do desastre --> se esqueceu cont_esqucimento = 0 ->decrementador_desastre = 0
                 ///se nao esqueceu -->cont_esqucimento --
                 ///se a população esqueceu do desastre-> não ocorre mais decremento na população devido ao desastre
-            if(aux_desastre != 1){
+            if(desastre != 1){
                 decrementador_desastre = 0;
             }else{
                 if(cont_esqucimento == 0){
@@ -280,7 +280,7 @@ int main(){
     relacoes_paises();
     graus();
     printf("se voce deseja que o programa funcione com desastres naturais ativo, digite 1, senao digite outro valor qualquer.");
-    scanf("%d", &aux_desastre);
+    scanf("%d", &desastre);
     vida();
     return 0;
 }
