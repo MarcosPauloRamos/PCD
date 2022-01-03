@@ -10,10 +10,10 @@ int *familias, **relacoes;
 int p, aux_desastre, tt, nascidos;
 double porcentagens_paises, probabilidade_de_desastre_natural;
 double decrementador_desastre, cont_esqucimento = 0, numero_pessoas;
-double *paises,
+double *paises;
 double cont_mudanca, incrementador, porcentagem_real;
 
-int aleatorio(n){
+int aleatorio(int n){
     return rand()%n;
 }
 void inicializador(){
@@ -38,7 +38,7 @@ void inicializador(){
 }
 
 ///aqui define as informações iniciais --> define os valores da matriz e os tipos de relações entre os paises
-void relacoes(){
+void relacoes_paises(){
       int i, j;
         porcentagens_paises = 0;
         ///aqui define os tipos de relações entre paises, fica a escolha de quem esta rodando o codigo
@@ -88,7 +88,7 @@ void relacoes(){
 
 ///conta o nome de ligaçõpes que uma celula da matriz pode ter e já monta a atriz
 void graus(){
-  int i, grau;
+  int i, j, k, l, grau;
             printf("\ndigite qual o grau do grafo desejado, sendo ele \n1: grau2\n 2: grau 4\n 3: grau8\n caso digite algum numero diferente sera cosiderado grau 2\n");
             scanf("%d", &grau);
             ///aqui pode escolher o grau
@@ -277,7 +277,7 @@ void vida(){
 
 int main(){
     inicializador();
-    relacoes();
+    relacoes_paises();
     graus();
     printf("se voce deseja que o programa funcione com desastres naturais ativo, digite 1, senao digite outro valor qualquer.");
     scanf("%d", &aux_desastre);
